@@ -28,7 +28,6 @@ export class FirebaseDynamicLinks {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Content-Length': data.length,
       },
     };
 
