@@ -4,7 +4,6 @@ import { ShortLinkResponse } from './types/short-link-response';
 import { RequestBody } from './types/request-body';
 
 export class FirebaseDynamicLinks {
-
   private readonly webApiKey!: string;
 
   /**
@@ -34,8 +33,8 @@ export class FirebaseDynamicLinks {
     };
 
     return new Promise((resolve, reject) => {
-      const req = request(options, res => {
-        res.on('data', d => {
+      const req = request(options, (res) => {
+        res.on('data', (d) => {
           const resBody = JSON.parse(d);
           if (res.statusCode === 200) {
             resolve(resBody);
@@ -51,7 +50,10 @@ export class FirebaseDynamicLinks {
     });
   }
 
-  async createShortLink(dynamicLinkInfo: DynamicLinkInfo, suffix?: 'SHORT' | 'UNGUESSABLE'): Promise<ShortLinkResponse> {
+  async createShortLink(
+    dynamicLinkInfo: DynamicLinkInfo,
+    suffix?: 'SHORT' | 'UNGUESSABLE',
+  ): Promise<ShortLinkResponse> {
     const requestBody: RequestBody = {
       dynamicLinkInfo,
       suffix: suffix && { option: suffix },
@@ -60,8 +62,10 @@ export class FirebaseDynamicLinks {
     return this.sendRequest(requestBody);
   }
 
-
-  async createShortLinkFromLongLink(longDynamicLink: string, suffix?: 'SHORT' | 'UNGUESSABLE'): Promise<ShortLinkResponse> {
+  async createShortLinkFromLongLink(
+    longDynamicLink: string,
+    suffix?: 'SHORT' | 'UNGUESSABLE',
+  ): Promise<ShortLinkResponse> {
     const requestBody: RequestBody = {
       longDynamicLink,
       suffix: suffix && { option: suffix },
