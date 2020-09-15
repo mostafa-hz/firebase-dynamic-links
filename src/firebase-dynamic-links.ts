@@ -1,7 +1,7 @@
 import { request, RequestOptions } from 'https';
 import { DynamicLinkInfo } from './types/dynamic-link-info';
 import { ShortLinkResponse } from './types/short-link-response';
-import { RequestBody } from './types/request-body';
+import { ShortLinkRequestBody } from './types/short-link-request-body';
 
 export class FirebaseDynamicLinks {
   private readonly webApiKey!: string;
@@ -19,7 +19,7 @@ export class FirebaseDynamicLinks {
     this.webApiKey = webApiKey;
   }
 
-  private async sendRequest(body: RequestBody): Promise<ShortLinkResponse> {
+  private async sendRequest(body: ShortLinkRequestBody): Promise<ShortLinkResponse> {
     const data: string = JSON.stringify(body);
 
     const options: RequestOptions = {
@@ -65,7 +65,7 @@ export class FirebaseDynamicLinks {
     longDynamicLink: string,
     suffix?: 'SHORT' | 'UNGUESSABLE',
   ): Promise<ShortLinkResponse> {
-    const requestBody: RequestBody = {
+    const requestBody: ShortLinkRequestBody = {
       longDynamicLink,
       suffix: suffix && { option: suffix },
     };
