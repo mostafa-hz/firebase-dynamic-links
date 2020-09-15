@@ -9,7 +9,7 @@ export class FirebaseDynamicLinks {
   /**
    * @constructor
    * @param(webApiKey) API key to authenticate your requests to the API.
-   * Obtain the project **Web Api Key** from [general settings]{@link https://console.firebase.google.com/project/_/settings/general/?authuser=0} in firebase console
+   * Take note of your project `Web Api Key` from [setting page](https://console.firebase.google.com/project/_/settings/general/) of the Firebase console.
    */
   constructor(webApiKey: string) {
     if (webApiKey == null) {
@@ -19,7 +19,12 @@ export class FirebaseDynamicLinks {
     this.webApiKey = webApiKey;
   }
 
-  private async sendRequest(body: ShortLinkRequestBody): Promise<ShortLinkResponse> {
+  /**
+   * You can use this function to generate short Dynamic Links.
+   * @param body read full documentation [here](https://firebase.google.com/docs/reference/dynamic-links/link-shortener#request_body)
+   * @return read full documentation [here](https://firebase.google.com/docs/reference/dynamic-links/link-shortener#response_body)
+   */
+  async createLink(body: ShortLinkRequestBody): Promise<ShortLinkResponse> {
     const data: string = JSON.stringify(body);
 
     const options: RequestOptions = {
@@ -49,18 +54,24 @@ export class FirebaseDynamicLinks {
     });
   }
 
+  /**
+   * @deprecated Use {@link createLink} instead
+   */
   async createShortLink(
     dynamicLinkInfo: DynamicLinkInfo,
     suffix?: 'SHORT' | 'UNGUESSABLE',
   ): Promise<ShortLinkResponse> {
-    const requestBody: RequestBody = {
+    const requestBody: ShortLinkRequestBody = {
       dynamicLinkInfo,
       suffix: suffix && { option: suffix },
     };
 
-    return this.sendRequest(requestBody);
+    return this.createLink(requestBody);
   }
 
+  /**
+   * @deprecated Use {@link createLink} instead
+   */
   async createShortLinkFromLongLink(
     longDynamicLink: string,
     suffix?: 'SHORT' | 'UNGUESSABLE',
@@ -70,6 +81,6 @@ export class FirebaseDynamicLinks {
       suffix: suffix && { option: suffix },
     };
 
-    return this.sendRequest(requestBody);
+    return this.createLink(requestBody);
   }
 }

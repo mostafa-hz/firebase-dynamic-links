@@ -7,6 +7,7 @@ import { ItunesConnectAnalytics } from './types/itunes-connect-analytics';
 import { NavigationInfo } from './types/navigation-info';
 import { ShortLinkResponse } from './types/short-link-response';
 import { SocialMetaTagInfo } from './types/social-meta-tag-info';
+import { ShortLinkRequestBody } from './types/short-link-request-body';
 
 export { FirebaseDynamicLinks } from './firebase-dynamic-links';
 
@@ -19,5 +20,6 @@ export {
   ItunesConnectAnalytics,
   NavigationInfo,
   ShortLinkResponse,
+  ShortLinkRequestBody,
   SocialMetaTagInfo,
 };
