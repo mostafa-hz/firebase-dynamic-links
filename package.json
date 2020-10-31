@@ -1,6 +1,6 @@
 {
   "name": "firebase-dynamic-links",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "unofficial package to create firebase dynamic links",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

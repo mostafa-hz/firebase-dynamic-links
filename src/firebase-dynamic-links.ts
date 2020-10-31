@@ -38,18 +38,20 @@ export class FirebaseDynamicLinks {
 
     return new Promise((resolve, reject) => {
       const req = request(options, (res) => {
-        const body: Buffer[] = [];
-        res.on('data', (chunk) => {
-          body.push(chunk);
-        }).on('end', () => {
-          const data = Buffer.concat(body).toString();
-          const resBody = JSON.parse(data);
-          if (res.statusCode === 200) {
-            resolve(resBody);
-          } else {
-            reject(resBody);
-          }
-        });
+        const buffers: Buffer[] = [];
+        res
+          .on('data', (chunk) => {
+            buffers.push(chunk);
+          })
+          .on('end', () => {
+            const d = Buffer.concat(buffers).toString();
+            const resBody = JSON.parse(d);
+            if (res.statusCode === 200) {
+              resolve(resBody);
+            } else {
+              reject(resBody);
+            }
+          });
       });
 
       req.on('error', reject);
