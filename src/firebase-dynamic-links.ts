@@ -2,6 +2,7 @@ import { request, RequestOptions } from 'https';
 import { DynamicLinkInfo } from './types/dynamic-link-info';
 import { ShortLinkResponse } from './types/short-link-response';
 import { ShortLinkRequestBody } from './types/short-link-request-body';
+import { LinkStatsResponse } from './types/link-stats-api';
 
 export class FirebaseDynamicLinks {
   private readonly webApiKey!: string;
@@ -56,6 +57,46 @@ export class FirebaseDynamicLinks {
 
       req.on('error', reject);
       req.write(data);
+      req.end();
+    });
+  }
+
+  /**
+   * Use the this function to get event statistics for a single Dynamic Link.
+   * @param shortDynamicLink The URL-encoded short Dynamic Link for which you want to get event data. read full documentation [here](https://firebase.google.com/docs/reference/dynamic-links/analytics#http_request)
+   * @param duration The number of days for which to get event data. read full documentation [here](https://firebase.google.com/docs/reference/dynamic-links/analytics#http_request)
+   * @param accessToken An unexpired access token. read full documentation [here](https://firebase.google.com/docs/reference/dynamic-links/analytics#api_authorization)
+   * @return read full documentation [here](https://firebase.gogle.com/docs/reference/dynamic-links/analytics#response_body)
+   */
+  async getLinkStats(shortDynamicLink: string, duration: number, accessToken: string): Promise<LinkStatsResponse> {
+    const options: RequestOptions = {
+      hostname: 'firebasedynamiclinks.googleapis.com',
+      path: `/v1/${encodeURIComponent(shortDynamicLink)}/linkStats?durationDays=${duration}`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    };
+
+    return new Promise((resolve, reject) => {
+      const req = request(options, (res) => {
+        const buffers: Buffer[] = [];
+        res
+          .on('data', (chunk) => {
+            buffers.push(chunk);
+          })
+          .on('end', () => {
+            const d = Buffer.concat(buffers).toString();
+            const resBody = JSON.parse(d);
+            if (res.statusCode === 200) {
+              resolve(resBody);
+            } else {
+              reject(resBody);
+            }
+          });
+      });
+
+      req.on('error', reject);
       req.end();
     });
   }

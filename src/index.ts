@@ -8,6 +8,7 @@ import { NavigationInfo } from './types/navigation-info';
 import { ShortLinkResponse } from './types/short-link-response';
 import { SocialMetaTagInfo } from './types/social-meta-tag-info';
 import { ShortLinkRequestBody } from './types/short-link-request-body';
+import { LinkEventStat, LinkStatsResponse, StatEvent, StatPlatform } from './types/link-stats-api';
 
 export { FirebaseDynamicLinks } from './firebase-dynamic-links';
 
@@ -22,4 +23,8 @@ export {
   ShortLinkResponse,
   ShortLinkRequestBody,
   SocialMetaTagInfo,
+  LinkStatsResponse,
+  LinkEventStat,
+  StatEvent,
+  StatPlatform,
 };
