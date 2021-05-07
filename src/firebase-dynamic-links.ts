@@ -1,7 +1,5 @@
 import { request, RequestOptions } from 'https';
-import { DynamicLinkInfo } from './types/dynamic-link-info';
-import { ShortLinkResponse } from './types/short-link-response';
-import { ShortLinkRequestBody } from './types/short-link-request-body';
+import { DynamicLinkInfo, ShortLinkRequestBody, ShortLinkResponse } from './types/short-links-api';
 import { LinkStatsResponse } from './types/link-stats-api';
 
 export class FirebaseDynamicLinks {
