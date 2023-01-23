@@ -11,7 +11,7 @@ export class FirebaseDynamicLinks {
    * Take note of your project `Web Api Key` from [setting page](https://console.firebase.google.com/project/_/settings/general/) of the Firebase console.
    */
   constructor(webApiKey: string) {
-    if (webApiKey == null) {
+    if (webApiKey === null || webApiKey === undefined) {
       throw new Error('Firebase Dynamic Links: Web Api Key can not be null or undefined');
     }
 
