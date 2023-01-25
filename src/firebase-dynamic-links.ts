@@ -129,6 +129,3 @@ export class FirebaseDynamicLinks {
     return this.createLink(requestBody);
   }
 }
-
-// @ts-ignore
-const x = new FirebaseDynamicLinks(undefined);
