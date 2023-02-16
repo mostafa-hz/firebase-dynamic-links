@@ -65,5 +65,11 @@ export interface ShortLinkRequestBody {
 
 export interface ShortLinkResponse {
   shortLink: string;
+  warning?: ShortLinkWarning[];
   previewLink: string;
+}
+
+export interface ShortLinkWarning {
+  warningCode: string;
+  warningMessage: string;
 }
